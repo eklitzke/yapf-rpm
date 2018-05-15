@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.21.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        A formatter for Python code
 
 License:        Apache License, Version 2.0
@@ -80,5 +80,11 @@ rm -rf %{buildroot}%{_bindir}/*
 %{python3_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
 
 %changelog
-* Tue May 15 2018 Evan Klitzke <evan@eklitzke.org> - 0.21.0-1
-- Initial package.
+* Tue May 15 2018 Evan Klitzke <evan@eklitzke.org> - 0.21.0-3
+- Convert package to pyp2rpm format.
+
+* Thu May 10 2018 Evan Klitzke <evan@eklitzke.org> - 0.21.0-2
+- Update packaging to handle py2/py3 better
+
+* Sat Apr 21 2018 Evan Klitzke <evan@eklitzke.org> - 0.21.0-1
+- Initial packaging work.
