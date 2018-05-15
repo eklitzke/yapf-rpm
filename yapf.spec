@@ -18,10 +18,8 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 
 %description
-YAPF Introduction Most of the current formatters for Python e.g., autopep8, and
-pep8ify are made to remove lint errors from code. This has some obvious
-limitations. For instance, code that conforms to the PEP 8 guidelines may not
-be
+YAPF is Yet Another Python Formatter. It automatically reformats source files to
+conform to conform to PEP 8 and other Python coding best practices.
 
 %package -n     python2-%{pypi_name}
 Summary:        %{summary}
@@ -29,10 +27,8 @@ Summary:        %{summary}
 
 Requires:       python2dist(setuptools)
 %description -n python2-%{pypi_name}
-YAPF Introduction Most of the current formatters for Python e.g., autopep8, and
-pep8ify are made to remove lint errors from code. This has some obvious
-limitations. For instance, code that conforms to the PEP 8 guidelines may not
-be
+YAPF is Yet Another Python Formatter. It automatically reformats source files to
+conform to conform to PEP 8 and other Python coding best practices.
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
@@ -40,11 +36,8 @@ Summary:        %{summary}
 
 Requires:       python3dist(setuptools)
 %description -n python3-%{pypi_name}
-YAPF Introduction Most of the current formatters for Python e.g., autopep8, and
-pep8ify are made to remove lint errors from code. This has some obvious
-limitations. For instance, code that conforms to the PEP 8 guidelines may not
-be
-
+YAPF is Yet Another Python Formatter. It automatically reformats source files to
+conform to conform to PEP 8 and other Python coding best practices.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
