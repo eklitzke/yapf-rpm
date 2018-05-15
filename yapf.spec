@@ -1,109 +1,84 @@
-%if 0%{?fedora} || 0%{?rhel} > 7
-%bcond_without python3
-%if 0%{?fedora} > 26 || 0%{?rhel} > 7
-%global defaultpython 3
-%else
-%global defaultpython 2
-%endif
-%else
-%bcond_with python3
-%global defaultpython 2
-%endif
+# Created by pyp2rpm-3.3.2
+%global pypi_name yapf
 
-%global modname yapf
-%global sum  A formatter for Python files
-%global desc An automatic code formatting utility for Python.
-
-Name:           python-%{modname}
+Name:           python-%{pypi_name}
 Version:        0.21.0
-Release:        2%{?dist}
-Summary:        %{sum}
+Release:        1%{?dist}
+Summary:        A formatter for Python code
 
-License:        MIT
-URL:            https://pypi.python.org/pypi/%{modname}
-Source0:        https://files.pythonhosted.org/packages/d0/68/7c0be88aa4cc7daf45294cc41c749dac02600933bf23e41d0d941d17d569/yapf-0.21.0.tar.gz
-
+License:        Apache License, Version 2.0
+URL:            None
+Source0:        https://files.pythonhosted.org/packages/source/y/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 
-%description
-YAPF is an automatic code formatting utility for Python.
-
-%package -n python2-%{modname}
-Summary:        %{sum}
-%{?python_provide:%python_provide python2-%{modname}}
-
-Requires:       python2-setuptools
-
 BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools
-
-%description -n python2-%{modname}
-%{desc}
-
-%if %{with python3}
-%package -n python%{python3_pkgversion}-%{modname}
-Summary:        %{sum}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{modname}}
-
-Requires:       python3-setuptools
+BuildRequires:  python2dist(setuptools)
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
+BuildRequires:  python3dist(setuptools)
 
-%description -n python%{python3_pkgversion}-%{modname}
-%{desc}
-%endif
+%description
+YAPF Introduction Most of the current formatters for Python e.g., autopep8, and
+pep8ify are made to remove lint errors from code. This has some obvious
+limitations. For instance, code that conforms to the PEP 8 guidelines may not
+be
+
+%package -n     python2-%{pypi_name}
+Summary:        %{summary}
+%{?python_provide:%python_provide python2-%{pypi_name}}
+
+Requires:       python2dist(setuptools)
+%description -n python2-%{pypi_name}
+YAPF Introduction Most of the current formatters for Python e.g., autopep8, and
+pep8ify are made to remove lint errors from code. This has some obvious
+limitations. For instance, code that conforms to the PEP 8 guidelines may not
+be
+
+%package -n     python3-%{pypi_name}
+Summary:        %{summary}
+%{?python_provide:%python_provide python3-%{pypi_name}}
+
+Requires:       python3dist(setuptools)
+%description -n python3-%{pypi_name}
+YAPF Introduction Most of the current formatters for Python e.g., autopep8, and
+pep8ify are made to remove lint errors from code. This has some obvious
+limitations. For instance, code that conforms to the PEP 8 guidelines may not
+be
+
 
 %prep
-%autosetup -n %{modname}-%{version}
+%autosetup -n %{pypi_name}-%{version}
+# Remove bundled egg-info
+rm -rf %{pypi_name}.egg-info
 
 %build
 %py2_build
-%if %{with python3}
 %py3_build
-%endif
 
 %install
-
+# Must do the default python version install last because
+# the scripts in /usr/bin are overwritten with every setup.py install.
 %py2_install
-mv %{buildroot}%{_bindir}/yapf %{buildroot}%{_bindir}/yapf-2
-ln -s yapf-2 %{buildroot}%{_bindir}/yapf-%{python2_version}
-
-%if %{with python3}
+rm -rf %{buildroot}%{_bindir}/*
 %py3_install
-mv %{buildroot}%{_bindir}/yapf %{buildroot}%{_bindir}/yapf-3
-ln -s yapf-3 %{buildroot}%{_bindir}/yapf-%{python3_version}
-%endif
-
-ln -s yapf-%{defaultpython} %{buildroot}%{_bindir}/yapf
 
 %check
 %{__python2} setup.py test
-%{?with_python3:%{__python3} setup.py test}
+%{__python3} setup.py test
 
-%files -n python2-%{modname}
+%files -n python2-%{pypi_name}
 %doc README.rst
-%if %{defaultpython} == 2
-%{_bindir}/yapf
-%endif
-%{_bindir}/yapf-2
-%{_bindir}/yapf-%{python2_version}
-%{python2_sitelib}/*
+%{python2_sitelib}/%{pypi_name}
+%{python2_sitelib}/yapftests
+%{python2_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
 
-%if %{with python3}
-%files -n python%{python3_pkgversion}-%{modname}
+%files -n python3-%{pypi_name}
 %doc README.rst
-%if %{defaultpython} == 3
 %{_bindir}/yapf
-%endif
-%{_bindir}/yapf-3
-%{_bindir}/yapf-%{python3_version}
-%{python3_sitelib}/%{modname}*
-%endif
+%{python3_sitelib}/%{pypi_name}
+%{python3_sitelib}/yapftests
+%{python3_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
 
 %changelog
-* Thu May 10 2018 Evan Klitzke <evan@eklitzke.org> - 0.21.0-2
-- Update packaging to handle py2/py3 better
-
-* Sat Apr 21 2018 Evan Klitzke <evan@eklitzke.org> - 0.21.0-1
-- Initial packaging work.
+* Tue May 15 2018 Evan Klitzke <evan@eklitzke.org> - 0.21.0-1
+- Initial package.
