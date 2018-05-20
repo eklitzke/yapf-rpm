@@ -3,11 +3,11 @@
 
 Name:           python-%{pypi_name}
 Version:        0.21.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A formatter for Python code
 
 License:        ASL 2.0
-URL:            None
+URL:            https://github.com/google/yapf
 Source0:        https://files.pythonhosted.org/packages/source/y/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 
@@ -73,6 +73,9 @@ rm -rf %{buildroot}%{_bindir}/*
 %{python3_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
 
 %changelog
+* Sun May 20 2018 Dick Marinus <dick@mrns.nl> - 0.21.0-5
+- Fix url tag
+
 * Sun May 20 2018 Dick Marinus <dick@mrns.nl> - 0.21.0-4
 - Fix license tag
 
