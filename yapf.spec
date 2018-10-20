@@ -2,8 +2,8 @@
 %global pypi_name yapf
 
 Name:           python-%{pypi_name}
-Version:        0.21.0
-Release:        3%{?dist}
+Version:        0.24.0
+Release:        1%{?dist}
 Summary:        A formatter for Python code
 
 License:        Apache License, Version 2.0
@@ -73,6 +73,9 @@ rm -rf %{buildroot}%{_bindir}/*
 %{python3_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
 
 %changelog
+* Sat Oct 20 2018 Evan Klitzke <evan@eklitzke.org> - 0.24.0-1
+- Update to upstream version 24
+
 * Tue May 15 2018 Evan Klitzke <evan@eklitzke.org> - 0.21.0-3
 - Convert package to pyp2rpm format.
 
